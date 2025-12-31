@@ -14,12 +14,12 @@ import string
 
 def generate_password():
     lenght = int(input("Enter the desired password lenght: ").strip())
-    include_uppercase = input("Include uppercase letters? (y/n): ").strip().lower()
-    include_special = input("Include special letters? (y/n): ").strip().lower()
-    include_digits = input("Include digits letters? (y/n): ").strip().lower()
+    include_uppercase = input("Include uppercase letters? (yes/no): ").strip().lower()
+    include_special = input("Include special letters? (yes/no): ").strip().lower()
+    include_digits = input("Include digits letters? (yes/no): ").strip().lower()
 
-    if lenght < 6:
-        print("Password lenght must be at least 6 characters!")
+    if lenght < 4:
+        print("Password lenght must be at least 4 characters!")
         return
     
     lower = string.ascii_lowercase
@@ -36,6 +36,18 @@ def generate_password():
     if include_special == "yes":
         required_character.append(random.choice(special))
 
+    remaining_lenght = lenght - len(required_character)
+    password = required_character
+
+    for _ in range(remaining_lenght):
+        character = random.choice(all_characters)
+        password.append(character)
+
+    random.shuffle(password)
+
+    str_password = "".join(password)
+    return str_password
 
 
-generate_password()
+password =  generate_password()
+print(password)
